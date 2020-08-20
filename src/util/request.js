@@ -4,13 +4,15 @@ import { Message } from "element-ui";
 const BASEURL = process.env.NODE_ENV === "production" ? "" : "/api";
 const instance = axios.create({
   baseURL: BASEURL,
-  timeout: 1000,
+  timeout: 20000,
 });
 
 // 添加请求拦截器
 instance.interceptors.request.use(
   function(config) {
     // 在发送请求之前做些什么
+    config.headers.token = "11111111111111111";
+
     return config;
   },
   function(error) {
@@ -24,7 +26,7 @@ instance.interceptors.response.use(
   function(response) {
     // 对响应数据做点什么
     console.log(response.data);
-    if (response.data != 0) {
+    if (response.data.resCode != 0) {
       Message.error(response.data.message);
       return Promise.reject(response);
     } else {

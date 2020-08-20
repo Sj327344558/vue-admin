@@ -23,10 +23,10 @@
           <label>验证码</label>
           <el-row :gutter="20">
             <el-col :span="15">
-              <el-input v-model.number="ruleForm.code"></el-input>
+              <el-input v-model="ruleForm.code"></el-input>
             </el-col>
             <el-col :span="9">
-              <el-button type="success" class="block" @click="getSms()"> 获取验证码</el-button>
+              <el-button type="success" class="block" @click="getSms()" :disabled="codeButtonStatus.status">{{codeButtonStatus.text}}</el-button>
             </el-col>
           </el-row>
         </el-form-item>
@@ -41,7 +41,7 @@
 
 <script>
 import { stripscript } from '@/util/verificate'
-import { GetSms } from '@/api/login.js'
+import { GetSms, Login, Register } from '@/api/login.js'
 
 export default {
   name: 'login',
@@ -88,6 +88,11 @@ export default {
       }
     }
     return {
+      timer: null,
+      codeButtonStatus: {
+        text: '获取验证码',
+        status: false,
+      },
       loginButtonStatus: true,
       model: 'login',
       menuTab: [
@@ -97,8 +102,8 @@ export default {
 
       //表单
       ruleForm: {
-        username: '',
-        password: '',
+        username: '327344558@qq.com',
+        password: '123456',
         passwords: '',
         code: '',
       },
@@ -111,10 +116,77 @@ export default {
     }
   },
   methods: {
+    login() {
+      let data = {
+        username: this.ruleForm.username,
+        password: this.ruleForm.password,
+        code: this.ruleForm.code,
+      }
+
+      Login(data)
+        .then((ressponse) => {
+          console.log('login -> ressponse', ressponse)
+
+          this.$router.push({
+            name: 'Console',
+          })
+        })
+        .catch((error) => {
+          console.log('login -> error', error)
+        })
+    },
+    register() {
+      let data = {
+        username: this.ruleForm.username,
+        password: this.ruleForm.password,
+        code: this.ruleForm.code,
+      }
+
+      Register(data)
+        .then((ressponse) => {
+          console.log('register -> ressponse', ressponse)
+          this.model = 'login'
+        })
+        .catch((error) => {
+          console.log('register -> error', error)
+        })
+    },
+
+    updateButtonStatus(params) {
+      this.codeButtonStatus.text = params.text
+      this.codeButtonStatus.status = params.status
+    },
+
+    countDown(number) {
+      console.log('countDown -> this.timer', this.timer)
+      if (this.timer) {
+        clearInterval(this.timer)
+      }
+
+      let time = number
+      this.timer = setInterval(() => {
+        time--
+        if (time == 0) {
+          clearInterval(this.timer)
+
+          this.codeButtonStatus({
+            text: '再次获取',
+            status: false,
+          })
+        } else {
+          this.codeButtonStatus.text = `倒计时${time}秒`
+        }
+      }, 1000)
+    },
+
     getSms() {
       //进行提示
       if (this.ruleForm.username === '') {
         this.$message.error('邮箱不能为空！')
+        return
+      }
+      if (this.ruleForm.password === '') {
+        this.$message.error('密码不能为空！')
         return
       }
 
@@ -122,13 +194,28 @@ export default {
         username: this.ruleForm.username,
         module: this.model,
       }
-      GetSms(data)
-        .then((response) => {
-          console.log('getSms -> response', response.data)
-        })
-        .catch((error) => {
-          console.log('getSms -> error', error)
-        })
+
+      this.updateButtonStatus({
+        text: '发送中',
+        status: true,
+      })
+
+      setTimeout(() => {
+        GetSms(data)
+          .then((response) => {
+            console.log('getSms -> response', response.data)
+
+            this.$message({
+              type: 'success',
+              message: response.data.message,
+            })
+            this.loginButtonStatus = false
+            this.countDown(60)
+          })
+          .catch((error) => {
+            console.log('getSms -> error', error)
+          })
+      }, 1000)
     },
     toggleMenu(data) {
       this.menuTab.forEach((element) => {
@@ -136,11 +223,19 @@ export default {
       })
       data.current = true
       this.model = data.type
+      this.updateButtonStatus({
+        text: '请求验证码',
+        status: false,
+      })
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          if (this.model == 'login') {
+            this.login()
+          } else {
+            this.register()
+          }
         } else {
           console.log('error submit!!')
           return false
