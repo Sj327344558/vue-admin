@@ -2,7 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import "./style/reset.css"; //重置默认全局css样式
+// import "./style/reset.css"; //重置默认全局css样式
+import "@/icons/index.js";
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";

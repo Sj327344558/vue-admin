@@ -25,6 +25,16 @@ module.exports = {
     },
   },
   chainWebpack: (config) => {
+    const svgRule = config.module.rule("svg");
+    svgRule.uses.clear();
+    svgRule
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({
+        symbolId: "icon-[name]",
+        include: ["./src/icons"],
+      });
+
     //操作对象修改
     // 移除 prefetch 插件(针对生产环境首屏请求数进行优化)
     config.plugins.delete("prefetch");
@@ -39,6 +49,7 @@ module.exports = {
       .set("@", resolve("./src"));
     //   .set("@utils", resolve("./src/utils"));
   },
+
   // 配置打包 js、css文件为.gz格式，优化加载速度  （参考：https://blog.csdn.net/qq_31677507/article/details/102742196）
   configureWebpack: (config) => {
     //链式编程修改
@@ -65,5 +76,21 @@ module.exports = {
         },
       };
     }
+  },
+
+  css: {
+    // 是否使用css分离插件 ExtractTextPlugin
+    extract: true,
+    // 开启 CSS source maps?
+    sourceMap: false,
+    // css预设器配置项
+    loaderOptions: {
+      scss: {
+        prependData: `@import "./src/style/main.scss";`,
+      },
+    },
+    // requireModuleExtension: false
+    // 启用 CSS modules for all css / pre-processor files.
+    // modules: false
   },
 };

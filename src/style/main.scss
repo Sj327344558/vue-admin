@@ -1,0 +1,12 @@
+@import './config.scss';
+@import './elementui.scss';
+@import './reset.scss';
+
+//设置两个全局的左右的css
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
