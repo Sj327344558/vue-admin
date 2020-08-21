@@ -1,6 +1,8 @@
 <template>
   <div id="main-wrap">
-    <router-view />
+    <div class="main-content">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -19,5 +21,15 @@ export default {}
   border: 30px solid #f7f7f7;
   border-bottom: none;
   -webkit-box-sizing: border;
+}
+.open {
+  #main-wrap {
+    left: $navMenu;
+  }
+}
+.close {
+  #main-wrap {
+    left: $navMenuMin;
+  }
 }
 </style>

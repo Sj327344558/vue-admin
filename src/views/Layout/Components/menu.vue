@@ -1,7 +1,8 @@
 <template>
   <div id="menu-trap">
     <h1 class="logo"><img src="@/assets/logo.png" alt=""></h1>
-    <el-menu router default-active="1-4-1" class="el-menu-vertical-demo" background-color="rgba(0,0,0,0)" text-color="#fff" active-text-color="#fff">
+    <el-menu router default-active="1-4-1" class="el-menu-vertical-demo" background-color="rgba(0,0,0,0)" text-color="#fff" active-text-color="#fff"
+      :collapse="isCollapse">
       <template v-for="(item,index) in routers">
         <el-submenu v-if="!item.hidden" :key="item.id" :index="index+''">
           <template slot="title">
@@ -30,6 +31,11 @@ export default {
     console.log(this.$router)
     this.routers = this.$router.options.routes
   },
+  computed: {
+    isCollapse() {
+      return this.$store.state.login.isCollapse
+    },
+  },
 }
 </script>
 
@@ -42,15 +48,35 @@ export default {
   width: $navMenu;
   height: 100vh;
   background-color: #344a5f;
+  @include webkit(transition, all 0.3s ease 0s); //动画效果
   svg {
     font-size: 20px;
     margin-right: 10px;
+  }
+  .el-menu {
+    border-right-width: 0;
+  }
+}
+.open {
+  #menu-trap {
+    width: $navMenu;
+  }
+}
+.close {
+  #menu-trap {
+    width: $navMenuMin;
+  }
+  .logo img {
+    width: 60%;
+    height: 60%;
+    // display: none;
   }
 }
 .logo {
   img {
     margin: auto;
     height: 150px;
+    @include webkit(transition, all 0.3s ease 0s); //动画效果
   }
 }
 </style>

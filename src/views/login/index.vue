@@ -122,11 +122,10 @@ export default {
         password: this.ruleForm.password,
         code: this.ruleForm.code,
       }
-
-      Login(data)
+      this.$store
+        .dispatch('login', data)
         .then((ressponse) => {
           console.log('login -> ressponse', ressponse)
-
           this.$router.push({
             name: 'Console',
           })
@@ -134,6 +133,8 @@ export default {
         .catch((error) => {
           console.log('login -> error', error)
         })
+
+      // Login(data)
     },
     register() {
       let data = {

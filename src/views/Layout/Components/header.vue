@@ -1,6 +1,6 @@
 <template>
   <div id="header-wrap">
-    <div class="pull-left header-icon">
+    <div class="pull-left header-icon" @click="navMenuState">
       <svg-icon iconClass="menu" className="menu"></svg-icon>
     </div>
     <div class="pull-right">
@@ -18,7 +18,17 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    navMenuState() {
+      this.$store.commit('SET_isCollapse', !this.$store.state.login.isCollapse)
+      // this.$store.dispatch('setMenustatus', { name: 'songjie' })
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -31,6 +41,7 @@ export default {}
   height: 75px;
   background-color: #fff;
   -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
+  @include webkit(transition, all 0.3s ease 0s);
 }
 
 .header-icon {
@@ -39,6 +50,17 @@ export default {}
     margin-bottom: -8px;
     font-size: 25px;
     cursor: pointer;
+  }
+}
+
+.open {
+  #header-wrap {
+    left: $navMenu;
+  }
+}
+.close {
+  #header-wrap {
+    left: $navMenuMin;
   }
 }
 .user-info {

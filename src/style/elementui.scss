@@ -20,3 +20,27 @@ li.el-submenu {
 //         background-color: red !important;
 //     }
 // }
+
+.close {
+    .el-submenu {
+        &.is-opened {
+            >.el-submenu__title {
+                background-color: $mainCcolor !important;
+            }
+        }
+    }
+}
+
+.el-menu--vertical {
+    .el-menu {
+        background-color: black !important;
+    }
+
+    .el-menu-item {
+        line-height: 56px;
+    }
+
+    .el-menu-item:hover {
+        background-color: $mainCcolor !important;
+    }
+}
