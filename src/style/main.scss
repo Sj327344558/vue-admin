@@ -10,3 +10,9 @@
 .pull-right {
     float: right;
 }
+
+@for $i from 1 through 110 {
+    .margin-left-#{$i} {
+        margin-left: (1px * $i);
+    }
+}

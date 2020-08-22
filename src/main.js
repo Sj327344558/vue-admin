@@ -8,6 +8,10 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import "./router/protect";
 
+//自定义全局方法
+import global from "@/util/global";
+
+Vue.use(global);
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 

@@ -20,7 +20,7 @@ export default {}
   bottom: 0;
   border: 30px solid #f7f7f7;
   border-bottom: none;
-  -webkit-box-sizing: border;
+  // -webkit-box-sizing: border;
 }
 .open {
   #main-wrap {

@@ -14,8 +14,6 @@
       </template>
 
     </el-menu>
-    <!-- <svg-icon iconClass="console" className="console"></svg-icon> -->
-
   </div>
 </template>
 
