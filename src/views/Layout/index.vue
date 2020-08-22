@@ -16,7 +16,7 @@ export default {
   components: { LayoutHeader, LayoutMain, LayoutMenu },
   computed: {
     menuStatus() {
-      return this.$store.state.login.isCollapse
+      return this.$store.state.app.isCollapse
     },
   },
 }

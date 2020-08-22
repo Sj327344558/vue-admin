@@ -28,12 +28,11 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$router)
     this.routers = this.$router.options.routes
   },
   computed: {
     isCollapse() {
-      return this.$store.state.login.isCollapse
+      return this.$store.state.app.isCollapse
     },
   },
 }

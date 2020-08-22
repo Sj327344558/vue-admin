@@ -123,16 +123,13 @@ export default {
         code: this.ruleForm.code,
       }
       this.$store
-        .dispatch('login', data)
+        .dispatch('login/login', data)
         .then((ressponse) => {
-          console.log('login -> ressponse', ressponse)
           this.$router.push({
             name: 'Console',
           })
         })
-        .catch((error) => {
-          console.log('login -> error', error)
-        })
+        .catch((error) => {})
 
       // Login(data)
     },
@@ -159,7 +156,6 @@ export default {
     },
 
     countDown(number) {
-      console.log('countDown -> this.timer', this.timer)
       if (this.timer) {
         clearInterval(this.timer)
       }
@@ -204,8 +200,6 @@ export default {
       setTimeout(() => {
         GetSms(data)
           .then((response) => {
-            console.log('getSms -> response', response.data)
-
             this.$message({
               type: 'success',
               message: response.data.message,

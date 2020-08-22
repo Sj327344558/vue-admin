@@ -6,9 +6,9 @@
     <div class="pull-right">
       <div class="pull-left user-info">
         <img src="../../../assets/images/face.jpg" alt="">
-        管理员
+        {{now_user}}
       </div>
-      <div class="pull-left header-icon">
+      <div class="pull-left header-icon" @click="logout">
         <svg-icon iconClass="logout" className="logout"></svg-icon>
       </div>
 
@@ -24,8 +24,27 @@ export default {
   },
   methods: {
     navMenuState() {
-      this.$store.commit('SET_isCollapse', !this.$store.state.login.isCollapse)
+      // this.$store.commit('login/SET_isCollapse', !this.$store.state.login.isCollapse)
+      this.$store.commit('app/SET_isCollapse', !this.$store.state.app.isCollapse)
       // this.$store.dispatch('setMenustatus', { name: 'songjie' })
+    },
+    logout() {
+      this.$store.dispatch('login/logout').then((Response) => {
+        console.log('退出')
+        this.$message({
+          type: 'success',
+          message: '退出成功！',
+        })
+        this.$router.push({
+          name: 'Login',
+        })
+      })
+    },
+  },
+  computed: {
+    now_user() {
+      console.log(this.$store.state.login.username)
+      return this.$store.state.login.username
     },
   },
 }

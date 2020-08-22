@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import app from "./app.js";
-import login from "./login.js";
+import app from "./modules/app.js";
+import login from "./modules/login.js";
 
 Vue.use(Vuex);
 

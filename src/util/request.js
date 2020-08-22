@@ -11,7 +11,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function(config) {
     // 在发送请求之前做些什么
-    config.headers.token = "11111111111111111";
 
     return config;
   },
@@ -25,7 +24,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function(response) {
     // 对响应数据做点什么
-    console.log(response.data);
     if (response.data.resCode != 0) {
       Message.error(response.data.message);
       return Promise.reject(response);
