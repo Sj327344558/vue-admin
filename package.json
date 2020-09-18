@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "cookie_js": "^1.4.0",
     "core-js": "^3.6.5",
+    "echarts": "^4.9.0",
     "element-ui": "^2.13.2",
     "sass-resources-loader": "^2.1.0",
     "svg-sprite-loader": "^5.0.0",

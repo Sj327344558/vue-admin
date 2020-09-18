@@ -42,7 +42,7 @@
 <script>
 import { stripscript } from '@/util/verificate'
 import { GetSms, Login, Register } from '@/api/login.js'
-
+import '@/style/reset.scss'
 export default {
   name: 'login',
   data() {

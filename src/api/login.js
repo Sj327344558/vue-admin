@@ -23,3 +23,9 @@ export function Register(data) {
     data,
   });
 }
+export function EchartsData() {
+  return axios({
+    method: "get",
+    url: "http://127.0.0.1:8888/app/echarts/data",
+  });
+}

@@ -4,7 +4,7 @@
     <el-menu router default-active="1-4-1" class="el-menu-vertical-demo" background-color="rgba(0,0,0,0)" text-color="#fff" active-text-color="#fff"
       :collapse="isCollapse">
       <template v-for="(item,index) in routers">
-        <el-submenu v-if="!item.hidden" :key="item.id" :index="index+''">
+        <el-submenu v-if="!item.hidden" :key="item.id" :index="index+''" :class="value.hasOwnProperty('aaa')? 'testa':'testb'">
           <template slot="title">
             <svg-icon :iconClass="item.meta.icon" :className="item.meta.icon"></svg-icon>
             <span slot="title">{{item.meta.name}}</span>
@@ -23,6 +23,9 @@ export default {
   data() {
     return {
       routers: {},
+      value: {
+        name: 'haha',
+      },
     }
   },
   mounted() {
@@ -74,6 +77,22 @@ export default {
     margin: auto;
     height: 150px;
     @include webkit(transition, all 0.3s ease 0s); //动画效果
+  }
+}
+.el-icon-arrow-down:before {
+  content: none;
+}
+</style>
+
+<style lang="scss">
+.testa {
+  .el-submenu__icon-arrow {
+    display: none;
+  }
+}
+.el-submenu__title {
+  i {
+    display: none;
   }
 }
 </style>
